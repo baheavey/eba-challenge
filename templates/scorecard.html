@@ -1,0 +1,45 @@
+{% if error %}
+	<p style="color: red;">{{ error }}</p>
+{% else %}
+	<h1>{{scorecard}}</h1>
+	Scoring starts: {{challenge_start_date}}<br/>
+	Scoring stops: {{challenge_stop_date}}<br/>
+	<h2>Daily Scorecard </h2>
+	<table><tr>
+	<td>{% if prev_url %} <a href="{{prev_url}}">Prev Day</a> {% endif %}</td>
+	<td>{{display_date}}</td>
+	<td>{% if next_url %} <a href="{{next_url}}">Next Day</a> {% endif %}</td>
+	</tr></table>
+	
+	<form action="" method="post">
+	<table>
+	{% for item in scorecard_items %}
+		{% ifchanged item.category %}
+			<tr bgcolor="#808080"><td><b>{{item.category.name}}</b></td><td></td></tr>
+		{% endifchanged %}
+		<tr>
+		<td>{{item.name}}</td>
+		<td><input type="number" name="{{item.id}}" min="{{item.min_points}}" max="{{item.max_points}}"
+					{% if form_disabled %} disabled {% endif %}
+			 		
+			 		{% for point in date_view_points %}
+						{% if point.item.id == item.id %}
+							value="{{point.score}}"
+						{% endif %}
+					{% endfor %}
+					>
+	</td></tr>
+	{% endfor %}
+</table>
+{% csrf_token %}
+<input type="submit" value="submit" {% if form_disabled %} disabled {% endif %}>
+</form>
+
+	<h2>Points</h2>
+	{{points}}
+
+	<h2>Totals</h2>
+	This Week:{{weekly_score}}<br/>
+	Challenge: {{challenge_score}}<br/>
+	{{date_view_points}}
+{% endif %}
