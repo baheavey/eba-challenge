@@ -3,6 +3,10 @@ from django.http import HttpResponse
 import datetime
 from .models import ScoringCategory, ScoringFrequency, ScoringItem, Scorecard, Challenge, Team, User, PointTracking
 
+#Different settings files for local and production
+#How to push updates to github and then get them into pythonanywhere
+#Need to make sure weekly maximum isn't exceeded for weekly items and that scoring for one-time is handled appropriately
+#Add hydration to tracking
 def daily_tracker(request, challenge_id, email, offset=0):
 	
 	# Find Challenge

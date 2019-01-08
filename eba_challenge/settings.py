@@ -119,3 +119,9 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/2.1/howto/static-files/
 
 STATIC_URL = '/static/'
+
+# Modification to use production settings for pythonanywhere when run on their server
+try:
+	from production_settings import *
+except ImportError:
+	pass
