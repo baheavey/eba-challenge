@@ -122,6 +122,6 @@ STATIC_URL = '/static/'
 
 # Modification to use production settings for pythonanywhere when run on their server
 try:
-	from production_settings import *
+	from eba_challenge.production_settings import *
 except ImportError:
 	pass
