@@ -2,11 +2,14 @@ from django.shortcuts import render
 from django.http import HttpResponse
 import datetime
 from .models import ScoringCategory, ScoringFrequency, ScoringItem, Scorecard, Challenge, Team, User, PointTracking
+from django.views.decorators.clickjacking import xframe_options_exempt
 
-#Different settings files for local and production
-#How to push updates to github and then get them into pythonanywhere
-#Need to make sure weekly maximum isn't exceeded for weekly items and that scoring for one-time is handled appropriately
-#Add hydration to tracking
+# How do I integrate this with wordpress... iframe?
+# Need to make sure weekly maximum isn't exceeded for weekly items 
+# handle scoring for one-time items appropriately
+# Add hydration to tracking
+
+@xframe_options_exempt
 def daily_tracker(request, challenge_id, email, offset=0):
 	
 	# Find Challenge
