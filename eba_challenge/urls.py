@@ -23,8 +23,7 @@ register_converter(converters.NegativeIntConverter, 'negint')
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('scorecard/', views.daily_tracker),
-    path('scorecard/<int:challenge_id>/<str:email>', views.daily_tracker),
+    #path('scorecard/<int:challenge_id>/<str:email>', views.daily_tracker),
     path('scorecard/<int:challenge_id>/<str:email>/<int:offset>', views.daily_tracker),
     path('scorecard/<int:challenge_id>/<str:email>/<negint:offset>', views.daily_tracker),
 ]
