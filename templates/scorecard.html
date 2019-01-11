@@ -1,14 +1,13 @@
 {% if error %}
 	<p style="color: red;">{{ error }}</p>
 {% else %}
-	<h1>{{scorecard}}</h1>
-	Scoring starts: {{challenge_start_date}}<br/>
-	Scoring stops: {{challenge_stop_date}}<br/>
 	<h2>Daily Scorecard </h2>
 	<table><tr>
-	<td>{% if prev_url %} <a href="{{prev_url}}">Prev Day</a> {% endif %}</td>
-	<td>{{display_date}}</td>
-	<td>{% if next_url %} <a href="{{next_url}}">Next Day</a> {% endif %}</td>
+	<td><b>Viewing {{display_date}}</b></td>
+  </tr><tr>
+	<td align="center">{% if prev_url %} <<&nbsp;<a href="{{prev_url}}">Previous Day</a> {% endif %}&nbsp;<<</td>
+	</tr><tr>
+	<td align="center">{% if next_url %} >>&nbsp;<a href="{{next_url}}">Next Day</a> {% endif %}&nbsp;>></td>
 	</tr></table>
 	
 	<form action="" method="post">
@@ -41,7 +40,14 @@
 	This Week:{{weekly_score}}<br/>
 	Challenge: {{challenge_score}}<br/>
 	Bonuses: 
-	{% for bonus in bonuses %}
-		{{bonus}}{% if not forloop.last %},{% endif %}
-	{% endfor %}<br/>
+	{% if bonuses %}
+		{% for bonus in bonuses %}
+			{{bonus}}{% if not forloop.last %},{% endif %}
+		{% endfor %}<br/>
+	{% else %}
+		None
+	{% endif %}
+	<h2>Challenge Details</h2>
+	Scoring starts: {{challenge_start_date}}<br/>
+	Scoring stops: {{challenge_stop_date}}<br/>
 {% endif %}
