@@ -5,9 +5,9 @@
 	<table><tr>
 	<td><b>Viewing {{display_date}}</b></td>
   </tr><tr>
-	<td align="center">{% if prev_url %} <<&nbsp;<a href="{{prev_url}}">Previous Day</a> {% endif %}&nbsp;<<</td>
+	<td align="center">{% if prev_url %} <<&nbsp;<a href="{{prev_url}}">Previous Day</a> &nbsp;<<{% endif %}</td>
 	</tr><tr>
-	<td align="center">{% if next_url %} >>&nbsp;<a href="{{next_url}}">Next Day</a> {% endif %}&nbsp;>></td>
+	<td align="center">{% if next_url %} >>&nbsp;<a href="{{next_url}}">Next Day</a> &nbsp;>>{% endif %}</td>
 	</tr></table>
 	
 	<form action="" method="post">
