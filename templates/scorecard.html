@@ -14,6 +14,7 @@
 	<form action="" method="post">
 	<table>
 	{% for item in scorecard_items %}
+		{% if item.category.name != "Bonus"%}
 		{% ifchanged item.category %}
 			<tr bgcolor="#808080"><td><b>{{item.category.name}}</b></td><td></td></tr>
 		{% endifchanged %}
@@ -29,17 +30,18 @@
 					{% endfor %}
 					>
 	</td></tr>
+	{% endif %}
 	{% endfor %}
 </table>
 {% csrf_token %}
 <input type="submit" value="submit" {% if form_disabled %} disabled {% endif %}>
 </form>
 
-	<h2>Points</h2>
-	{{points}}
-
 	<h2>Totals</h2>
 	This Week:{{weekly_score}}<br/>
 	Challenge: {{challenge_score}}<br/>
-	{{date_view_points}}
+	Bonuses: 
+	{% for bonus in bonuses %}
+		{{bonus}}{% if not forloop.last %},{% endif %}
+	{% endfor %}<br/>
 {% endif %}

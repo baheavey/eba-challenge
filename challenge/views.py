@@ -4,10 +4,7 @@ import datetime
 from .models import ScoringCategory, ScoringFrequency, ScoringItem, Scorecard, Challenge, Team, User, PointTracking
 from django.views.decorators.clickjacking import xframe_options_exempt
 
-# How do I integrate this with wordpress... iframe?
-# Need to make sure weekly maximum isn't exceeded for weekly items 
 # handle scoring for one-time items appropriately
-# Add hydration to tracking
 
 @xframe_options_exempt
 def daily_tracker(request, challenge_id, email, offset=0):
@@ -75,6 +72,7 @@ def daily_tracker(request, challenge_id, email, offset=0):
 	challenge_score = 0
 	weekly_score = 0
 	date_view_points = []
+	bonuses = []
 	
 	for point in points:
 		challenge_score += point.score
@@ -83,8 +81,10 @@ def daily_tracker(request, challenge_id, email, offset=0):
 			weekly_score += point.score
 		if point.record_date == display_date:
 			date_view_points.append(point)
+		if point.item.category.name == "Bonus":
+			bonuses.append(point.item.name)
 		
-	return render(request, 'scorecard.html', {'scorecard': scorecard, 'scorecard_items': scorecard_items, 'points': points, 'challenge_score': challenge_score, 'weekly_score': weekly_score, 'date_view_points': date_view_points, 'display_date': display_date, 'challenge_start_date': challenge_start_date, 'challenge_stop_date': challenge_stop_date, 'next_url': next_url, 'prev_url': prev_url, 'offset': offset, 'form_disabled': form_disabled})
+	return render(request, 'scorecard.html', {'scorecard': scorecard, 'scorecard_items': scorecard_items, 'points': points, 'challenge_score': challenge_score, 'weekly_score': weekly_score, 'date_view_points': date_view_points, 'display_date': display_date, 'challenge_start_date': challenge_start_date, 'challenge_stop_date': challenge_stop_date, 'next_url': next_url, 'prev_url': prev_url, 'offset': offset, 'form_disabled': form_disabled, 'bonuses': bonuses})
 		
 		
 def update_points(post_data, scorecard_items, points, display_date, user, challenge):
