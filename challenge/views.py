@@ -21,7 +21,7 @@ def daily_tracker(request, challenge_id, email, offset=0):
 
 	# Find User
 	try:
-		user = User.objects.get(email=email)
+		user = User.objects.get(email__iexact=email) # __iexact makes the email address lookup case insensitive
 	except User.DoesNotExist:
 		return render(request, 'scorecard.html', {'error': "Error: No Such User"})
 
