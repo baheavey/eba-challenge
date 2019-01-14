@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'challenge',
 ]
 
+# Two commented out sections in middleware facilitate my form existing with an iframe on another host, there's probably a better way to do this, this was the quick and dirty approach
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',

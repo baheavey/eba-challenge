@@ -2,9 +2,8 @@ from django.shortcuts import render
 from django.http import HttpResponse
 import datetime
 from .models import ScoringCategory, ScoringFrequency, ScoringItem, Scorecard, Challenge, Team, User, PointTracking
+# Commented this out along with decorators below because I was still experiencing an xframe issue when submitting the form...?  Took a hammer to it and disabled these features in the settings file
 #from django.views.decorators.clickjacking import xframe_options_exempt
-
-# handle scoring for one-time items appropriately
 
 #@xframe_options_exempt
 def daily_tracker(request, challenge_id, email, offset=0):
