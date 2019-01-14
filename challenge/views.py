@@ -2,11 +2,11 @@ from django.shortcuts import render
 from django.http import HttpResponse
 import datetime
 from .models import ScoringCategory, ScoringFrequency, ScoringItem, Scorecard, Challenge, Team, User, PointTracking
-from django.views.decorators.clickjacking import xframe_options_exempt
+#from django.views.decorators.clickjacking import xframe_options_exempt
 
 # handle scoring for one-time items appropriately
 
-@xframe_options_exempt
+#@xframe_options_exempt
 def daily_tracker(request, challenge_id, email, offset=0):
 	
 	# Find Challenge
@@ -86,7 +86,7 @@ def daily_tracker(request, challenge_id, email, offset=0):
 		
 	return render(request, 'scorecard.html', {'scorecard': scorecard, 'scorecard_items': scorecard_items, 'points': points, 'challenge_score': challenge_score, 'weekly_score': weekly_score, 'date_view_points': date_view_points, 'display_date': display_date, 'challenge_start_date': challenge_start_date, 'challenge_stop_date': challenge_stop_date, 'next_url': next_url, 'prev_url': prev_url, 'offset': offset, 'form_disabled': form_disabled, 'bonuses': bonuses})
 		
-@xframe_options_exempt		
+#@xframe_options_exempt		
 def update_points(post_data, scorecard_items, points, display_date, user, challenge):
 	# All points currently registered for display day
 	display_day_points = points.filter(record_date=display_date)
