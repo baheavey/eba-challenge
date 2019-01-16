@@ -1,0 +1,14 @@
+{% if error %}
+	<p style="color: red;">{{ error }}</p>
+{% else %}
+	<table>
+	<tr><td><b>Participant</b></td><td><b>Team</b></td><td><b>Score</b></td></tr>
+	{% for leader in leaderboard %}
+	<tr>
+		<td>{{leader.user}}</td>
+		<td>{{leader.team.all.0}}</td>
+		<td>{{leader.score}}</td>
+	</tr>
+	{% endfor %}
+	</table>
+{% endif %}

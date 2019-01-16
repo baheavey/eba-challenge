@@ -126,3 +126,32 @@ def update_points(post_data, scorecard_items, points, display_date, user, challe
 				point.score = 0
 				point.save()
 	
+def leaderboard(request, challenge_id):
+	
+	# Find Challenge
+	try:
+		challenge = Challenge.objects.get(id=challenge_id)
+	except Challenge.DoesNotExist:
+		return render(request, 'leaderboard.html', {'error': "Error: Unknown Challenge"})
+
+	# Calculate Dates
+	today = datetime.datetime.today()
+
+	# Get all points logged
+	points = PointTracking.objects.filter(challenge=challenge).order_by("user")
+
+	current_user = []
+	total_points = 0
+	leaderboard = []
+	for point in points:
+		if point.user == current_user:
+			total_points += point.score
+			leaderboard[-1]['score'] = total_points
+		else:
+			current_user = point.user
+			total_points = point.score
+			leaderboard.append({'user':current_user, 'team':current_user.team, 'score':total_points})
+		
+		leaderboard = sorted(leaderboard, key=lambda k: k['score']) 
+		
+	return render(request, 'leaderboard.html', {'leaderboard': leaderboard})
