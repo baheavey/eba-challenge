@@ -1,8 +1,39 @@
+<html><head>
+	<style>
+#challenge {
+  font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+  border-collapse: collapse;
+  width: 50%;
+}
+
+#challenge td, #challenge th {
+  border: 1px solid #ddd;
+  padding: 8px;
+}
+
+#challenge tr:nth-child(even){background-color: #f2f2f2;}
+
+#challenge tr:hover {background-color: #ddd;}
+
+#challenge th {
+  padding-top: 12px;
+  padding-bottom: 12px;
+  text-align: left;
+  background-color: #09A0D3;
+  color: white;
+}
+</style>
+</head>
+<body>
+<!--
+Kingman color: 65CC33
+Lodi color: 1E54A5
+-->
 {% if error %}
 	<p style="color: red;">{{ error }}</p>
 {% else %}
-	<table>
-	<tr><td><b>Participant</b></td><td><b>Team</b></td><td><b>Score</b></td></tr>
+	<table id="challenge">
+	<tr><th><b>Participant</b></th><th><b>Team</b></th><th><b>Score</b></th></tr>
 	{% for leader in leaderboard %}
 	<tr>
 		<td>{{leader.user}}</td>
@@ -12,3 +43,5 @@
 	{% endfor %}
 	</table>
 {% endif %}
+
+</body></html>

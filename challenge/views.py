@@ -152,6 +152,6 @@ def leaderboard(request, challenge_id):
 			total_points = point.score
 			leaderboard.append({'user':current_user, 'team':current_user.team, 'score':total_points})
 		
-		leaderboard = sorted(leaderboard, key=lambda k: k['score']) 
+		leaderboard = sorted(leaderboard, key=lambda k: k['score'], reverse=True) 
 		
 	return render(request, 'leaderboard.html', {'leaderboard': leaderboard})
