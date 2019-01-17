@@ -143,6 +143,7 @@ def leaderboard(request, challenge_id):
 	current_user = []
 	total_points = 0
 	leaderboard = []
+	teams = []
 	for point in points:
 		if point.user == current_user:
 			total_points += point.score
@@ -150,8 +151,17 @@ def leaderboard(request, challenge_id):
 		else:
 			current_user = point.user
 			total_points = point.score
-			leaderboard.append({'user':current_user, 'team':current_user.team, 'score':total_points})
+			current_team = current_user.team.all()[0].name
+			leaderboard.append({'user':current_user, 'team':current_team, 'score':total_points})
+			if not current_team in teams:
+				teams.append(current_team)
 		
+		# Final leaderboard is sorted by score and then name
+		leaderboard = sorted(leaderboard, key=lambda k: k['user'])
 		leaderboard = sorted(leaderboard, key=lambda k: k['score'], reverse=True) 
 		
-	return render(request, 'leaderboard.html', {'leaderboard': leaderboard})
+		team_leaderboard = []	
+		for team in teams:
+			team_leaderboard.append({'team':team, 'players':list(filter(lambda k: k['team'] == team, leaderboard))})
+		
+	return render(request, 'leaderboard.html', {'leaderboard': leaderboard, 'teams': teams, 'team_leaderboard':team_leaderboard})
