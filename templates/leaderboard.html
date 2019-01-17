@@ -45,7 +45,7 @@ Lodi color: 1E54A5
 	</table>
 	
 	{% for team in team_leaderboard %}
-		<h1>{{team.team}} Leaderboard</h1>
+		<h1>{{team.team}} Leaderboard {{team.score}}</h1>
 		<table id="challenge">
 		<tr><th><b>Participant</b></th><th><b>Score</b></th></tr>
 		{% for leader in team.players %}

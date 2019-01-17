@@ -162,6 +162,10 @@ def leaderboard(request, challenge_id):
 		
 		team_leaderboard = []	
 		for team in teams:
-			team_leaderboard.append({'team':team, 'players':list(filter(lambda k: k['team'] == team, leaderboard))})
+			player_scores = list(filter(lambda k: k['team'] == team, leaderboard))
+			team_total = 0
+			for player in player_scores:
+				team_total += player['score']
+			team_leaderboard.append({'team':team, 'players':player_scores, 'score': team_total})
 		
 	return render(request, 'leaderboard.html', {'leaderboard': leaderboard, 'teams': teams, 'team_leaderboard':team_leaderboard})
