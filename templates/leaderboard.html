@@ -32,22 +32,24 @@ Lodi color: 1E54A5
 {% if error %}
 	<p style="color: red;">{{ error }}</p>
 {% else %}
-	<h1>Overall Leaderboard</h1>
+	<h1>(Un)Challenge Leaderboard - Top 10</h1>
 	<table id="challenge">
 	<tr><th><b>Participant</b></th><th><b>Team</b></th><th><b>Score</b></th></tr>
 	{% for leader in leaderboard %}
+	{% if forloop.counter <= 10 %}
 	<tr>
 		<td>{{leader.user}}</td>
 		<td>{{leader.team}}</td>
 		<td>{{leader.score}}</td>
 	</tr>
+	{% endif %}
 	{% endfor %}
 	</table>
 	
 	{% for team in team_leaderboard %}
 		<h1>{{team.team}} Leaderboard {{team.score}}</h1>
 		<table id="challenge">
-		<tr><th><b>Participant</b></th><th><b>Score</b></th></tr>
+		<tr><th style="background-color: #{{team.color}}"><b>Participant</b></th><th style="background-color: #{{team.color}}"><b>Score</b></th></tr>
 		{% for leader in team.players %}
 		<tr>
 			<td>{{leader.user}}</td>

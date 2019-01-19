@@ -42,6 +42,7 @@ class Challenge(models.Model):
 class Team(models.Model):
 	name = models.CharField(max_length=30)
 	challenge = models.ForeignKey(Challenge, on_delete=models.CASCADE)
+	color = models.CharField(max_length=10)
 	
 	def __str__(self):
 		return self.name
