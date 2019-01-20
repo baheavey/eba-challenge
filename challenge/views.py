@@ -164,8 +164,12 @@ def leaderboard(request, challenge_id):
 		for team in teams:
 			player_scores = list(filter(lambda k: k['team'] == team, leaderboard))
 			team_total = 0
-			for player in player_scores:
+			mod_total = 0
+			mod_players = 11 # num players at smallest team - hardcoded for first challenge
+			for num, player in enumerate(player_scores):
 				team_total += player['score']
-			team_leaderboard.append({'team':team, 'players':player_scores, 'score': team_total})
+				if num < mod_players:
+					mod_total += player['score']
+			team_leaderboard.append({'team':team, 'players':player_scores, 'score': team_total, 'mod_total':mod_total})
 		
 	return render(request, 'leaderboard.html', {'leaderboard': leaderboard, 'teams': teams, 'team_leaderboard':team_leaderboard})
