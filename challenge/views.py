@@ -151,8 +151,8 @@ def leaderboard(request, challenge_id):
 		else:
 			current_user = point.user
 			total_points = point.score
-			current_team = current_user.team.all()[0].name
-			leaderboard.append({'user':str(current_user), 'team':current_team, 'score':total_points})
+			current_team = current_user.team.all()[0]
+			leaderboard.append({'user':str(current_user), 'team':current_team.name, 'score':total_points})
 			if not current_team in teams:
 				teams.append(current_team)
 		
