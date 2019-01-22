@@ -156,20 +156,20 @@ def leaderboard(request, challenge_id):
 			if not current_team in teams:
 				teams.append(current_team)
 		
-		# Final leaderboard is sorted by score and then name
-		leaderboard = sorted(leaderboard, key=lambda k: k['user'])
-		leaderboard = sorted(leaderboard, key=lambda k: k['score'], reverse=True) 
+	# Final leaderboard is sorted by score and then name
+	leaderboard = sorted(leaderboard, key=lambda k: k['user'])
+	leaderboard = sorted(leaderboard, key=lambda k: k['score'], reverse=True) 
 		
-		team_leaderboard = []	
-		for team in teams:
-			player_scores = list(filter(lambda k: k['team'] == team, leaderboard))
-			team_total = 0
-			mod_total = 0
-			mod_players = 11 # num players at smallest team - hardcoded for first challenge
-			for num, player in enumerate(player_scores):
-				team_total += player['score']
-				if num < mod_players:
-					mod_total += player['score']
-			team_leaderboard.append({'team':team, 'players':player_scores, 'score': team_total, 'mod_total':mod_total})
+	team_leaderboard = []	
+	for team in teams:
+		player_scores = list(filter(lambda k: k['team'] == team, leaderboard))
+		team_total = 0
+		mod_total = 0
+		mod_players = 11 # num players at smallest team - hardcoded for first challenge
+		for num, player in enumerate(player_scores):
+			team_total += player['score']
+			if num < mod_players:
+				mod_total += player['score']
+		team_leaderboard.append({'team':team, 'players':player_scores, 'score': team_total, 'mod_total':mod_total})
 		
 	return render(request, 'leaderboard.html', {'leaderboard': leaderboard, 'teams': teams, 'team_leaderboard':team_leaderboard})
